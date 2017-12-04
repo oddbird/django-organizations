@@ -122,14 +122,23 @@ class OrgMeta(ModelBase):
         try:
             cls.module_registry[module]['OrgUserModel']._meta.get_field("user")
         except FieldDoesNotExist:
-            cls.module_registry[module]['OrgUserModel'].add_to_class("user",
-                models.ForeignKey(USER_MODEL, related_name="%(app_label)s_%(class)s"))
+            cls.module_registry[module]['OrgUserModel'].add_to_class(
+                "user",
+                models.ForeignKey(
+                    USER_MODEL,
+                    related_name="%(app_label)s_%(class)s",
+                    on_delete=models.CASCADE,
+                ),
+            )
         try:
             cls.module_registry[module]['OrgUserModel']._meta.get_field("organization")
         except FieldDoesNotExist:
             cls.module_registry[module]['OrgUserModel'].add_to_class("organization",
-                models.ForeignKey(cls.module_registry[module]['OrgModel'],
-                        related_name="organization_users"))
+                models.ForeignKey(
+                    cls.module_registry[module]['OrgModel'],
+                    related_name="organization_users",
+                    on_delete=models.CASCADE,
+                ))
 
     def update_org_owner(cls, module):
         """
