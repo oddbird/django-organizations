@@ -148,13 +148,19 @@ class OrgMeta(ModelBase):
             cls.module_registry[module]['OrgOwnerModel']._meta.get_field("organization_user")
         except FieldDoesNotExist:
             cls.module_registry[module]['OrgOwnerModel'].add_to_class("organization_user",
-                models.OneToOneField(cls.module_registry[module]['OrgUserModel']))
+                models.OneToOneField(
+                    cls.module_registry[module]['OrgUserModel'],
+                    on_delete=models.CASCADE,
+                ))
         try:
             cls.module_registry[module]['OrgOwnerModel']._meta.get_field("organization")
         except FieldDoesNotExist:
             cls.module_registry[module]['OrgOwnerModel'].add_to_class("organization",
-                models.OneToOneField(cls.module_registry[module]['OrgModel'],
-                        related_name="owner"))
+                models.OneToOneField(
+                    cls.module_registry[module]['OrgModel'],
+                    related_name="owner",
+                    on_delete=models.CASCADE,
+                ))
 
 
 class AbstractBaseOrganization(UnicodeMixin, models.Model):
