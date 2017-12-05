@@ -45,9 +45,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('user_type', models.CharField(default=b'', max_length=1)),
-                ('organization', models.ForeignKey(related_name='organization_users', to='vendors.Vendor')),
+                ('organization', models.ForeignKey(related_name='organization_users', to='vendors.Vendor', on_delete=models.CASCADE)),
                 ('permissions', models.ManyToManyField(to='auth.Permission', blank=True)),
-                ('user', models.ForeignKey(related_name='vendors_vendoruser', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(related_name='vendors_vendoruser', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['organization', 'user'],

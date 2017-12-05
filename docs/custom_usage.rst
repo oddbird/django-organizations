@@ -24,8 +24,8 @@ this client organization is related to a service provider organization.::
     class Client(Organization):
         """Now this model has a name field and a slug field"""
         service_provider = models.ForeignKey(ServiceProvider,
-                related_name="clients")
-        subscription_plan = models.ForeignKey(SubscriptionPlan)
+                related_name="clients", on_delete=models.CASCADE)
+        subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE)
         subscription_start = models.DateField()
         url = models.URLField()
         description = models.TextField()

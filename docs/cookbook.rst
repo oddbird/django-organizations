@@ -208,7 +208,7 @@ Here's an example from a sport team management application.::
     from sports.models import Sport
 
     class Team(Organization):
-        sport = models.ForeignKey(Sport, related_name="teams")
+        sport = models.ForeignKey(Sport, related_name="teams", on_delete=models.CASCADE)
         city = models.CharField(max_length=100)
 
 That's all that's required to update your models. The `Team` model will use the
@@ -236,10 +236,10 @@ organization classes if need be.::
     from sports.models import Sport
 
     class Association(Organization):
-        sport = models.ForeignKey(Sport, related_name="associations")
+        sport = models.ForeignKey(Sport, related_name="associations", on_delete=models.CASCADE)
 
     class Team(Organization):
-        association = models.ForeignKey(Association, related_name="teams")
+        association = models.ForeignKey(Association, related_name="teams", on_delete=models.CASCADE)
         city = models.CharField(max_length=100)
 
 As in this example you can add them in the same app although it probably makes
@@ -382,7 +382,7 @@ The simplest way to associate resources with an account is with a foreign key.::
 
     class MeetingMinutes(models.Model):
         """A representative resource model"""
-        account = models.ForeignKey('Account', related_name='meeting_minutes')
+        account = models.ForeignKey('Account', related_name='meeting_minutes', on_delete=models.CASCADE)
 
 We now have a definite way of linking our meeting minutes resource with an account.
 Accessing only those meeting minutes related to the account is straightforward using
@@ -399,8 +399,8 @@ a similar fashion.::
     from third_party_app.models import Document
 
     class DocumentLink(models.Model):
-        account = models.ForeignKey('Account', related_name="document_links")
-        document = models.ForeignKey('Document', unique=True)
+        account = models.ForeignKey('Account', related_name="document_links", on_delete=models.CASCADE)
+        document = models.ForeignKey('Document', unique=True, on_delete=models.CASCADE)
 
 The linking model should in *most scenarios* enforce uniquness against the linked resource
 model to prevent multiple organizations from having access to the resource.

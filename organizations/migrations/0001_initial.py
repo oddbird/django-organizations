@@ -54,8 +54,8 @@ class Migration(migrations.Migration):
                 ('created', organizations.fields.AutoCreatedField(default=django.utils.timezone.now, editable=False)),
                 ('modified', organizations.fields.AutoLastModifiedField(default=django.utils.timezone.now, editable=False)),
                 ('is_admin', models.BooleanField(default=False)),
-                ('organization', models.ForeignKey(related_name='organization_users', to='organizations.Organization')),
-                ('user', models.ForeignKey(related_name='organizations_organizationuser', to=settings.AUTH_USER_MODEL)),
+                ('organization', models.ForeignKey(related_name='organization_users', to='organizations.Organization', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(related_name='organizations_organizationuser', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['organization', 'user'],
