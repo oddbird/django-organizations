@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
             name='VendorOwner',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('organization', models.OneToOneField(related_name='owner', to='vendors.Vendor')),
+                ('organization', models.OneToOneField(related_name='owner', to='vendors.Vendor', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='vendorowner',
             name='organization_user',
-            field=models.OneToOneField(to='vendors.VendorUser'),
+            field=models.OneToOneField(to='vendors.VendorUser', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='vendor',
